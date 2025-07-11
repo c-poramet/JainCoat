@@ -14,9 +14,9 @@ const realEndingMessages = [
     "You have the courage to be authentically yourself."
 ];
 
-// Card assets mapping
-const cardSuits = ['Heart', 'Diamond', 'Club', 'Spade'];
-const cardValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q'];
+// Card suits and text-based numbers
+const cardSuits = ['♠', '♥', '♦', '♣'];
+const cardNumbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen'];
 
 // Random number generator with seed
 function seededRandom(seed) {
@@ -36,12 +36,25 @@ function getRandomCard(messageIndex) {
     const combinedSeed = hourSeed * 1000 + messageIndex;
     
     const suitIndex = Math.floor(seededRandom(combinedSeed) * cardSuits.length);
-    const valueIndex = Math.floor(seededRandom(combinedSeed + 1) * cardValues.length);
+    const numberIndex = Math.floor(seededRandom(combinedSeed + 1) * cardNumbers.length);
     
     const suit = cardSuits[suitIndex];
-    const value = cardValues[valueIndex];
+    const number = cardNumbers[numberIndex];
     
-    return `assets/${suit}.png`;
+    return { suit, number };
+}
+
+// Create card overlay element
+function createCardOverlay(card) {
+    const overlay = document.createElement('div');
+    overlay.className = 'card-overlay';
+    overlay.innerHTML = `
+        <div class="card-content">
+            <div class="card-number">${card.number}</div>
+            <div class="card-suit">${card.suit}</div>
+        </div>
+    `;
+    return overlay;
 }
 
 let currentMessageIndex = 0;
@@ -97,19 +110,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 leftBtn.style.display = 'none';
             }
             
-            // Add card background after message 4 (index 3)
-            const messageDisplay = document.getElementById('message-display');
-            if (currentMessageIndex >= 4) {
-                const cardImage = getRandomCard(currentMessageIndex);
-                messageDisplay.style.backgroundImage = `url('${cardImage}')`;
-                messageDisplay.style.backgroundSize = 'contain';
-                messageDisplay.style.backgroundRepeat = 'no-repeat';
-                messageDisplay.style.backgroundPosition = 'center';
-                messageDisplay.style.backgroundBlendMode = 'multiply';
-                messageDisplay.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            // Add card overlay after message 4 (index 3) - TESTING: show from message 1
+            if (currentMessageIndex >= 0) {
+                // Remove existing card overlay
+                const existingOverlay = document.querySelector('.card-overlay');
+                if (existingOverlay) {
+                    existingOverlay.remove();
+                }
+                
+                // Create and add new card overlay
+                const card = getRandomCard(currentMessageIndex);
+                console.log('Creating card:', card);
+                const cardOverlay = createCardOverlay(card);
+                document.body.appendChild(cardOverlay);
+                console.log('Card overlay added to body');
+                
+                // Fade in the card overlay
+                setTimeout(() => {
+                    cardOverlay.style.opacity = '0.4';
+                    console.log('Card opacity set to 0.4');
+                }, 50);
             } else {
-                messageDisplay.style.backgroundImage = 'none';
-                messageDisplay.style.backgroundColor = 'transparent';
+                // Remove card overlay for early messages
+                const existingOverlay = document.querySelector('.card-overlay');
+                if (existingOverlay) {
+                    existingOverlay.remove();
+                }
             }
             
             // Fade in and reset position
@@ -154,16 +180,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     leftBtn.style.display = 'none';
     
-    // Initialize card background if needed
-    const messageDisplay = document.getElementById('message-display');
-    if (currentMessageIndex >= 4) {
-        const cardImage = getRandomCard(currentMessageIndex);
-        messageDisplay.style.backgroundImage = `url('${cardImage}')`;
-        messageDisplay.style.backgroundSize = 'contain';
-        messageDisplay.style.backgroundRepeat = 'no-repeat';
-        messageDisplay.style.backgroundPosition = 'center';
-        messageDisplay.style.backgroundBlendMode = 'multiply';
-        messageDisplay.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+    // Initialize card overlay if needed - TESTING: show from start
+    if (currentMessageIndex >= 0) {
+        const card = getRandomCard(currentMessageIndex);
+        const cardOverlay = createCardOverlay(card);
+        document.body.appendChild(cardOverlay);
+        cardOverlay.style.opacity = '0.4';
     }
     
     // Handle button clicks

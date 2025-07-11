@@ -52,7 +52,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 30px;
-    transition: transform 0.3s ease, opacity 0.3s ease, background-image 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     border-radius: 15px;
     position: relative;
 }
@@ -83,6 +83,48 @@ body {
     justify-content: center;
     position: relative;
     z-index: 2;
+}
+
+/* Card Overlay Styles */
+.card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    transition: opacity 0.5s ease;
+    mix-blend-mode: multiply;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.card-content {
+    text-align: center;
+    font-family: 'Baincoat', Arial, sans-serif;
+    color: #2a2a2a;
+    transform: rotate(-15deg);
+    border: 2px dashed rgba(74, 74, 74, 0.3);
+    padding: 40px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-number {
+    font-size: 180px;
+    font-weight: bold;
+    line-height: 0.8;
+    text-transform: lowercase;
+    margin-bottom: 20px;
+}
+
+.card-suit {
+    font-size: 120px;
+    line-height: 1;
 }
 
 /* Navigation Controls */
@@ -152,6 +194,14 @@ body {
     #navigation-controls {
         gap: 30px;
     }
+    
+    .card-number {
+        font-size: 140px;
+    }
+    
+    .card-suit {
+        font-size: 90px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -187,6 +237,14 @@ body {
     #navigation-controls {
         bottom: 30px;
         gap: 25px;
+    }
+    
+    .card-number {
+        font-size: 100px;
+    }
+    
+    .card-suit {
+        font-size: 70px;
     }
 }
 

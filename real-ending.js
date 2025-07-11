@@ -1,18 +1,13 @@
-// Ending Page JavaScript
+// Real Ending Page JavaScript
 
-// Birthday messages to display sequentially
-const birthdayMessages = [
-    "June has completed her journey of discovery!",
-    "But June will face many journeys in life.",
-    "Be prepared.",
-    "I might not always be here, but I will always be with you.",
-    "Life is tough and boring.",
-    "But good musics can make it better.",
-    "Maybe with some ice cream.",
-    "Then life could be dream",
-    "Wish you a happy birthday, June!",
-    "PS: This font is my favorite. I made it myself.",
-    "So take it as if my handwriting is the style of my thoughts. The only way I could seal my love to last longer than my mind."
+// Real ending messages to display sequentially
+const realEndingMessages = [
+    "The real adventure begins now...",
+    "Every ending is just a new beginning.",
+    "June's story continues beyond this game.",
+    "In your own life, in your own choices.",
+    "Happy Birthday!",
+    "May your real adventure be filled with wonder."
 ];
 
 let currentMessageIndex = 0;
@@ -45,18 +40,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update content and fade in after fade out completes
         setTimeout(() => {
             // Update main message
-            messageText.textContent = birthdayMessages[currentMessageIndex];
+            messageText.textContent = realEndingMessages[currentMessageIndex];
             
             // Update previous message (above)
             if (currentMessageIndex > 0) {
-                previousText.textContent = birthdayMessages[currentMessageIndex - 1];
+                previousText.textContent = realEndingMessages[currentMessageIndex - 1];
             } else {
                 previousText.textContent = '';
             }
             
             // Update next message (below)
-            if (currentMessageIndex < birthdayMessages.length - 1) {
-                nextText.textContent = birthdayMessages[currentMessageIndex + 1];
+            if (currentMessageIndex < realEndingMessages.length - 1) {
+                nextText.textContent = realEndingMessages[currentMessageIndex + 1];
             } else {
                 nextText.textContent = '';
             }
@@ -86,12 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Function to show the next message
     function showNextMessage() {
-        if (currentMessageIndex < birthdayMessages.length - 1) {
+        if (currentMessageIndex < realEndingMessages.length - 1) {
             currentMessageIndex++;
             updateDisplay('forward');
         } else {
-            // All messages shown, go to real ending page
-            window.location.href = 'real-ending.html';
+            // All messages shown, return to main game
+            window.location.href = 'index.html';
         }
     }
     
@@ -104,9 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Initialize display without animation
-    messageText.textContent = birthdayMessages[currentMessageIndex];
-    if (birthdayMessages.length > 1) {
-        nextText.textContent = birthdayMessages[1];
+    messageText.textContent = realEndingMessages[currentMessageIndex];
+    if (realEndingMessages.length > 1) {
+        nextText.textContent = realEndingMessages[1];
     }
     leftBtn.style.display = 'none';
     

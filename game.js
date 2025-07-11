@@ -26,6 +26,7 @@ class JuneGame {
         
         this.background = {
             element: document.getElementById('background'),
+            skyElement: document.getElementById('sky-background'),
             offset: 0
         };
         
@@ -183,6 +184,9 @@ class JuneGame {
         
         // Update background position based on camera
         this.background.element.style.backgroundPositionX = -this.camera.x + 'px';
+        
+        // Update sky background position (scroll slower for parallax effect)
+        this.background.skyElement.style.backgroundPositionX = -this.camera.x * 0.5 + 'px';
         
         // Update all objects' positions based on camera
         this.updateObjectPositions();

@@ -125,6 +125,16 @@ body {
 .card-suit {
     font-size: 120px;
     line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.suit-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: opacity(0.8);
 }
 
 /* Navigation Controls */
@@ -202,6 +212,11 @@ body {
     .card-suit {
         font-size: 90px;
     }
+    
+    .suit-image {
+        width: 90px;
+        height: 90px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -245,6 +260,11 @@ body {
     
     .card-suit {
         font-size: 70px;
+    }
+    
+    .suit-image {
+        width: 70px;
+        height: 70px;
     }
 }
 

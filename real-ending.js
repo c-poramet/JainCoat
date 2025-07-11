@@ -6,17 +6,47 @@ const realEndingMessages = [
     "I wish to write you out all the reasons I love you, but I can't. Today I got DND sessions with our friends.",
     "If I could, I would still need a deck of cards with thounsands of cards and a pen that never runs out of ink.",
     "So let's try to keep it short but as sweet.",
-    "Here's a random card from my deck of reasons...",
-    "You make even the simplest moments feel magical.",
-    "Your laugh is my favorite sound in the world.",
-    "You see beauty in things others overlook.",
-    "Your kindness touches everyone around you.",
-    "You have the courage to be authentically yourself."
+    "You made me believe in becoming a writer.",
+    "The best audience I could ever have.",
+    "I will have you in my filmmaking, surely.",
+    "To be honest, I think learning languages would be a blast with you.",
+    "Please, wait to see my films.",
+    "I might teach you math sometimes.",
+    "No one will ever be able to replace you bro. June is June (even tho I have two June's in my life, whatsoever.",
+    "Oh, also wait to read my books too.",
+    "Thank you for being you, June.",
+    "Also thank you for being my friend. It is one of the best gift I could ever have.",
+    "Happy birthday, June.",
+    "Here is a song for you, one of my favorite EVER."
 ];
 
 // Card suits and text-based numbers
-const cardSuits = ['♠', '♥', '♦', '♣'];
+const cardSuits = ['Heart', 'Diamond', 'Club', 'Spade'];
 const cardNumbers = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'jack', 'queen'];
+
+// Track used cards to prevent duplicates
+let usedCards = new Set();
+
+// Create all possible cards
+function getAllPossibleCards() {
+    const allCards = [];
+    cardSuits.forEach(suit => {
+        cardNumbers.forEach(number => {
+            allCards.push({ suit, number });
+        });
+    });
+    return allCards;
+}
+
+// Shuffle array using seeded random
+function shuffleArray(array, seed) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(seededRandom(seed + i) * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
 
 // Random number generator with seed
 function seededRandom(seed) {
@@ -30,18 +60,19 @@ function getCurrentHourSeed() {
     return now.getHours();
 }
 
-// Generate random card based on hour seed and message index
+// Generate random card based on hour seed and message index (no duplicates)
 function getRandomCard(messageIndex) {
     const hourSeed = getCurrentHourSeed();
-    const combinedSeed = hourSeed * 1000 + messageIndex;
     
-    const suitIndex = Math.floor(seededRandom(combinedSeed) * cardSuits.length);
-    const numberIndex = Math.floor(seededRandom(combinedSeed + 1) * cardNumbers.length);
+    // Get all possible cards and shuffle them based on the hour seed
+    const allCards = getAllPossibleCards();
+    const shuffledCards = shuffleArray(allCards, hourSeed);
     
-    const suit = cardSuits[suitIndex];
-    const number = cardNumbers[numberIndex];
+    // Use message index to select from shuffled deck (cycling if needed)
+    const cardIndex = messageIndex % shuffledCards.length;
+    const selectedCard = shuffledCards[cardIndex];
     
-    return { suit, number };
+    return selectedCard;
 }
 
 // Create card overlay element
@@ -51,7 +82,9 @@ function createCardOverlay(card) {
     overlay.innerHTML = `
         <div class="card-content">
             <div class="card-number">${card.number}</div>
-            <div class="card-suit">${card.suit}</div>
+            <div class="card-suit">
+                <img src="assets/${card.suit}.png" alt="${card.suit}" class="suit-image">
+            </div>
         </div>
     `;
     return overlay;
@@ -160,8 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currentMessageIndex++;
             updateDisplay('forward');
         } else {
-            // All messages shown, return to main game
-            window.location.href = 'index.html';
+            // All messages shown, open the YouTube image link
+            window.location.href = 'https://youtu.be/JGJPVl7iQUM';
         }
     }
     

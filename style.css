@@ -1,0 +1,272 @@
+/* Custom Font */
+@font-face {
+    font-family: 'Baincoat';
+    src: url('assets/Baincoat-Regular.ttf') format('truetype');
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Baincoat', Arial, sans-serif;
+    background: url('assets/white-crumpled-paper-texture-background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#game-container {
+    width: 100vw;
+    height: 85vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: -5vh;
+}
+
+#game-world {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/Background Town.png');
+    background-size: auto 60%;
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    transition: background-position-x 0.3s ease-out;
+}
+
+/* Player Character */
+.character {
+    position: absolute;
+    bottom: 80px;
+    transition: left 0.3s ease-in-out;
+    z-index: 50;
+}
+
+#player {
+    left: 100px;
+    width: 120px;
+    height: 180px;
+}
+
+#player-sprite {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Interactive Objects */
+.interactive-object {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    z-index: 40;
+}
+
+.interactive-object img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.interactive-object:hover {
+    transform: scale(1.1);
+}
+
+/* Mobile Controls */
+#mobile-controls {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    z-index: 100;
+}
+
+#movement-controls {
+    display: flex;
+    gap: 30px;
+}
+
+#action-controls {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    touch-action: manipulation;
+}
+
+.control-btn img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.control-btn.hidden {
+    display: none;
+}
+
+/* Message Display */
+#message-display {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+}
+
+#message-display.hidden {
+    display: none;
+}
+
+#message-box {
+    position: relative;
+    width: 400px;
+    height: 200px;
+}
+
+#message-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#message-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    line-height: 1.4;
+    max-width: 320px;
+}
+
+/* Responsive Design for iPad */
+@media screen and (max-width: 1024px) {
+    #player {
+        width: 100px;
+        height: 150px;
+        bottom: 60px;
+    }
+    
+    .interactive-object {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .control-btn img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    #message-box {
+        width: 350px;
+        height: 175px;
+    }
+    
+    #message-content {
+        font-size: 16px;
+        max-width: 280px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #player {
+        width: 90px;
+        height: 135px;
+        bottom: 50px;
+    }
+    
+    .interactive-object {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .control-btn img {
+        width: 110px;
+        height: 110px;
+    }
+    
+    #mobile-controls {
+        gap: 30px;
+    }
+    
+    #movement-controls {
+        gap: 25px;
+    }
+    
+    #action-controls {
+        gap: 25px;
+    }
+    
+    #message-box {
+        width: 300px;
+        height: 150px;
+    }
+    
+    #message-content {
+        font-size: 14px;
+        max-width: 240px;
+    }
+}
+
+/* Portrait iPad specific */
+@media screen and (max-width: 834px) and (orientation: portrait) {
+    #background {
+        background-size: auto 60%;
+        background-position: center bottom;
+    }
+    
+    #player {
+        bottom: 70px;
+    }
+    
+    .control-btn img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Landscape iPad specific */
+@media screen and (min-width: 835px) and (max-width: 1194px) and (orientation: landscape) {
+    #mobile-controls {
+        bottom: 30px;
+    }
+    
+    .control-btn img {
+        width: 130px;
+        height: 130px;
+    }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>June's Adventure - Happy Birthday!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-world">
+            <!-- Sky Background -->
+            <div id="sky-background"></div>
+            
+            <!-- Ground Background -->
+            <div id="background"></div>
+            
+            <!-- Player character -->
+            <div id="player" class="character">
+                <img src="assets/June.png" alt="June" id="player-sprite">
+            </div>
+            
+            <!-- Interactive objects -->
+            <div id="objects-container">
+                <!-- Will add objects as you guide me -->
+            </div>
+        </div>
+        
+        <!-- Mobile UI Controls -->
+        <div id="mobile-controls">
+            <div id="movement-controls">
+                <button id="left-btn" class="control-btn">
+                    <img src="assets/Left Button.png" alt="Move Left">
+                </button>
+                <button id="right-btn" class="control-btn">
+                    <img src="assets/Right Button.png" alt="Move Right">
+                </button>
+            </div>
+            
+            <div id="action-controls">
+                <button id="umbrella-btn" class="control-btn">
+                    <img src="assets/Umbrella Button.png" alt="Change Character State">
+                </button>
+                <button id="interact-btn" class="control-btn hidden">
+                    <img src="assets/Interaction Button.png" alt="Interact">
+                </button>
+            </div>
+        </div>
+        
+        <!-- Message display -->
+        <div id="message-display" class="hidden">
+            <div id="message-box">
+                <img src="assets/Text box .png" alt="Message Box">
+                <div id="message-content"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>

@@ -73,8 +73,22 @@ class JuneGame {
         // Also support mouse for testing
         leftBtn.addEventListener('mousedown', () => this.isMoving.left = true);
         leftBtn.addEventListener('mouseup', () => this.isMoving.left = false);
+        leftBtn.addEventListener('mouseleave', () => this.isMoving.left = false); // Stop when mouse leaves button
+        
         rightBtn.addEventListener('mousedown', () => this.isMoving.right = true);
         rightBtn.addEventListener('mouseup', () => this.isMoving.right = false);
+        rightBtn.addEventListener('mouseleave', () => this.isMoving.right = false); // Stop when mouse leaves button
+        
+        // Add touchcancel events to handle interrupted touches
+        leftBtn.addEventListener('touchcancel', (e) => {
+            e.preventDefault();
+            this.isMoving.left = false;
+        });
+        
+        rightBtn.addEventListener('touchcancel', (e) => {
+            e.preventDefault();
+            this.isMoving.right = false;
+        });
         
         // Umbrella toggle
         umbrellaBtn.addEventListener('click', () => this.toggleUmbrella());
@@ -122,6 +136,17 @@ class JuneGame {
         // Window resize
         window.addEventListener('resize', () => {
             this.screenWidth = window.innerWidth;
+        });
+        
+        // Stop movement when window loses focus or visibility changes
+        window.addEventListener('blur', () => {
+            this.stopMovement();
+        });
+        
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.stopMovement();
+            }
         });
     }
     
@@ -261,6 +286,9 @@ class JuneGame {
     }
     
     showMessage(message) {
+        // Stop all movement when showing a message
+        this.stopMovement();
+        
         const messageDisplay = document.getElementById('message-display');
         const messageContent = document.getElementById('message-content');
         
@@ -314,6 +342,11 @@ class JuneGame {
                 rect1.left > rect2.right + distance || 
                 rect1.bottom < rect2.top - distance || 
                 rect1.top > rect2.bottom + distance);
+    }
+    
+    stopMovement() {
+        this.isMoving.left = false;
+        this.isMoving.right = false;
     }
 }
 

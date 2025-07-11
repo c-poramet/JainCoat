@@ -52,6 +52,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 30px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 #message-text {

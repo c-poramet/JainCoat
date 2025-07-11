@@ -22,38 +22,71 @@ document.addEventListener('DOMContentLoaded', () => {
     const previousText = document.getElementById('previous-text');
     const nextText = document.getElementById('next-text');
     
-    // Function to update all text displays
-    function updateDisplay() {
-        // Update main message
-        messageText.textContent = birthdayMessages[currentMessageIndex];
+    // Function to update all text displays with smooth rolling animation
+    function updateDisplay(direction = 'forward') {
+        // Disable buttons during animation
+        rightBtn.disabled = true;
+        leftBtn.disabled = true;
         
-        // Update previous message (above)
-        if (currentMessageIndex > 0) {
-            previousText.textContent = birthdayMessages[currentMessageIndex - 1];
-        } else {
-            previousText.textContent = '';
-        }
+        // Create rolling effect by animating individual text elements
+        const animationOffset = direction === 'forward' ? -30 : 30;
+        const fadeOutDuration = 200;
+        const fadeInDuration = 300;
         
-        // Update next message (below)
-        if (currentMessageIndex < birthdayMessages.length - 1) {
-            nextText.textContent = birthdayMessages[currentMessageIndex + 1];
-        } else {
-            nextText.textContent = '';
-        }
+        // Fade out and move current texts
+        [previousText, messageText, nextText].forEach((element, index) => {
+            element.style.transition = `opacity ${fadeOutDuration}ms ease, transform ${fadeOutDuration}ms ease`;
+            element.style.opacity = '0';
+            element.style.transform = `translateY(${animationOffset}px)`;
+        });
         
-        // Show/hide left button
-        if (currentMessageIndex > 0) {
-            leftBtn.style.display = 'block';
-        } else {
-            leftBtn.style.display = 'none';
-        }
+        // Update content and fade in after fade out completes
+        setTimeout(() => {
+            // Update main message
+            messageText.textContent = birthdayMessages[currentMessageIndex];
+            
+            // Update previous message (above)
+            if (currentMessageIndex > 0) {
+                previousText.textContent = birthdayMessages[currentMessageIndex - 1];
+            } else {
+                previousText.textContent = '';
+            }
+            
+            // Update next message (below)
+            if (currentMessageIndex < birthdayMessages.length - 1) {
+                nextText.textContent = birthdayMessages[currentMessageIndex + 1];
+            } else {
+                nextText.textContent = '';
+            }
+            
+            // Show/hide left button
+            if (currentMessageIndex > 0) {
+                leftBtn.style.display = 'block';
+            } else {
+                leftBtn.style.display = 'none';
+            }
+            
+            // Fade in and reset position
+            [previousText, messageText, nextText].forEach((element, index) => {
+                element.style.transition = `opacity ${fadeInDuration}ms ease, transform ${fadeInDuration}ms ease`;
+                element.style.opacity = element === messageText ? '1' : '0.3';
+                element.style.transform = 'translateY(0)';
+            });
+            
+            // Re-enable buttons after animation completes
+            setTimeout(() => {
+                rightBtn.disabled = false;
+                leftBtn.disabled = false;
+            }, fadeInDuration);
+            
+        }, fadeOutDuration);
     }
     
     // Function to show the next message
     function showNextMessage() {
         if (currentMessageIndex < birthdayMessages.length - 1) {
             currentMessageIndex++;
-            updateDisplay();
+            updateDisplay('forward');
         } else {
             // All messages shown, return to game
             window.location.href = 'index.html';
@@ -64,12 +97,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function showPreviousMessage() {
         if (currentMessageIndex > 0) {
             currentMessageIndex--;
-            updateDisplay();
+            updateDisplay('backward');
         }
     }
     
-    // Initialize display
-    updateDisplay();
+    // Initialize display without animation
+    messageText.textContent = birthdayMessages[currentMessageIndex];
+    if (birthdayMessages.length > 1) {
+        nextText.textContent = birthdayMessages[1];
+    }
+    leftBtn.style.display = 'none';
     
     // Handle button clicks
     rightBtn.addEventListener('click', showNextMessage);

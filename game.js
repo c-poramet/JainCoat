@@ -320,6 +320,25 @@ class JuneGame {
 // Initialize game when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.juneGame = new JuneGame();
+    
+    // Add interactive objects after game is initialized
+    setTimeout(() => {
+        // Add the sun below the sky, far to the right
+        window.juneGame.addObject(
+            2600, // worldX position (600 + 2000px further right)
+            'assets/Sun.png',
+            'Hello sunshine! ☀️ You found the happy sun! Keep exploring to discover more surprises.',
+            'sun-object'
+        );
+        
+        // Position the sun higher up (below the sky)
+        const sunObject = document.getElementById('sun-object');
+        if (sunObject) {
+            sunObject.style.bottom = '60%'; // Position it in the sky area
+            sunObject.style.width = '80px';  // Make it a bit larger since it's in the sky
+            sunObject.style.height = '80px';
+        }
+    }, 100); // Small delay to ensure game is fully loaded
 });
 
 // Prevent scrolling on mobile

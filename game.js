@@ -288,7 +288,17 @@ class JuneGame {
             const message = this.nearObject.dataset.message;
             if (message) {
                 this.lastInteractedObject = this.nearObject; // Track this interaction
-                this.showMessage(message);
+                
+                // Special handling for the gift box - go to ending page
+                if (this.nearObject.id === 'gift-object') {
+                    // Short delay to let player see they interacted with the gift
+                    setTimeout(() => {
+                        window.location.href = 'ending.html';
+                    }, 500);
+                    this.showMessage('🎁 Opening the gift box... ✨');
+                } else {
+                    this.showMessage(message);
+                }
             }
         }
     }

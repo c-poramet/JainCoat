@@ -1,0 +1,200 @@
+/* Custom Font */
+@font-face {
+    font-family: 'Baincoat';
+    src: url('assets/Baincoat-Regular.ttf') format('truetype');
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Baincoat', Arial, sans-serif;
+    background: url('assets/white-crumpled-paper-texture-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    color: #4a4a4a;
+}
+
+#ending-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#ending-content {
+    text-align: center;
+    max-width: 900px;
+    padding: 50px;
+    margin-bottom: 120px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#message-display {
+    padding: 40px;
+    margin: 20px 0;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+#message-text {
+    font-size: 42px;
+    line-height: 1.8;
+    color: #4a4a4a;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.context-text {
+    font-size: 32px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    text-align: center;
+    opacity: 0.3;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Navigation Controls */
+#navigation-controls {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    touch-action: manipulation;
+}
+
+.nav-btn img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.nav-btn:hover img {
+    transform: scale(1.1);
+}
+
+.nav-btn:active {
+    transform: scale(0.95);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+    #message-text {
+        font-size: 34px;
+    }
+    
+    .context-text {
+        font-size: 26px;
+        min-height: 50px;
+    }
+    
+    .nav-btn img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    #ending-content {
+        max-width: 600px;
+        padding: 30px;
+    }
+    
+    #message-display {
+        padding: 30px;
+        margin: 15px 0;
+        min-height: 280px;
+        gap: 25px;
+    }
+    
+    #navigation-controls {
+        gap: 30px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #message-text {
+        font-size: 28px;
+        line-height: 1.6;
+    }
+    
+    .context-text {
+        font-size: 22px;
+        line-height: 1.4;
+        min-height: 40px;
+    }
+    
+    .nav-btn img {
+        width: 90px;
+        height: 90px;
+    }
+    
+    #ending-content {
+        max-width: 90%;
+        padding: 20px;
+        margin-bottom: 80px;
+    }
+    
+    #message-display {
+        padding: 20px;
+        margin: 10px 0;
+        min-height: 250px;
+        gap: 20px;
+    }
+    
+    #navigation-controls {
+        bottom: 30px;
+        gap: 25px;
+    }
+}
+
+/* Portrait iPad specific */
+@media screen and (max-width: 834px) and (orientation: portrait) {
+    .nav-btn img {
+        width: 110px;
+        height: 110px;
+    }
+}
+
+/* Landscape iPad specific */
+@media screen and (min-width: 835px) and (max-width: 1194px) and (orientation: landscape) {
+    .nav-btn img {
+        width: 130px;
+        height: 130px;
+    }
+}

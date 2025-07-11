@@ -9,20 +9,20 @@
 <body>
     <div id="ending-container">
         <div id="ending-content">
-            <h1>🎁 Happy Birthday! 🎁</h1>
-            <div id="birthday-message">
-                <p>June has completed her journey of discovery!</p>
-                <p>Each object she found shared a piece of wisdom about life, beauty, and meaning.</p>
-                <p>Just like this adventure, birthdays are about exploring, discovering, and appreciating the journey.</p>
-                <p>Thank you for playing June's Adventure!</p>
-                <p>✨ May your birthday be filled with wonder and joy! ✨</p>
+            <div id="message-display">
+                <p id="previous-text" class="context-text"></p>
+                <p id="message-text">June has completed her journey of discovery!</p>
+                <p id="next-text" class="context-text"></p>
             </div>
         </div>
         
-        <!-- Navigation Button -->
+        <!-- Navigation Buttons -->
         <div id="navigation-controls">
-            <button id="back-btn" class="nav-btn">
-                <img src="assets/Right Button.png" alt="Back to Game">
+            <button id="left-btn" class="nav-btn" style="display: none;">
+                <img src="assets/Left Button.png" alt="Previous">
+            </button>
+            <button id="right-btn" class="nav-btn">
+                <img src="assets/Right Button.png" alt="Next">
             </button>
         </div>
     </div>

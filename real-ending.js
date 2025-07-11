@@ -2,13 +2,47 @@
 
 // Real ending messages to display sequentially
 const realEndingMessages = [
-    "The real adventure begins now...",
-    "Every ending is just a new beginning.",
-    "June's story continues beyond this game.",
-    "In your own life, in your own choices.",
-    "Happy Birthday!",
-    "May your real adventure be filled with wonder."
+    "Of course, As if it was some kind of an inside joke.",
+    "I wish to write you out all the reasons I love you, but I can't. Today I got DND sessions with our friends.",
+    "If I could, I would still need a deck of cards with thounsands of cards and a pen that never runs out of ink.",
+    "So let's try to keep it short but as sweet.",
+    "Here's a random card from my deck of reasons...",
+    "You make even the simplest moments feel magical.",
+    "Your laugh is my favorite sound in the world.",
+    "You see beauty in things others overlook.",
+    "Your kindness touches everyone around you.",
+    "You have the courage to be authentically yourself."
 ];
+
+// Card assets mapping
+const cardSuits = ['Heart', 'Diamond', 'Club', 'Spade'];
+const cardValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q'];
+
+// Random number generator with seed
+function seededRandom(seed) {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+}
+
+// Get current hour as seed
+function getCurrentHourSeed() {
+    const now = new Date();
+    return now.getHours();
+}
+
+// Generate random card based on hour seed and message index
+function getRandomCard(messageIndex) {
+    const hourSeed = getCurrentHourSeed();
+    const combinedSeed = hourSeed * 1000 + messageIndex;
+    
+    const suitIndex = Math.floor(seededRandom(combinedSeed) * cardSuits.length);
+    const valueIndex = Math.floor(seededRandom(combinedSeed + 1) * cardValues.length);
+    
+    const suit = cardSuits[suitIndex];
+    const value = cardValues[valueIndex];
+    
+    return `assets/${suit}.png`;
+}
 
 let currentMessageIndex = 0;
 
@@ -63,6 +97,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 leftBtn.style.display = 'none';
             }
             
+            // Add card background after message 4 (index 3)
+            const messageDisplay = document.getElementById('message-display');
+            if (currentMessageIndex >= 4) {
+                const cardImage = getRandomCard(currentMessageIndex);
+                messageDisplay.style.backgroundImage = `url('${cardImage}')`;
+                messageDisplay.style.backgroundSize = 'contain';
+                messageDisplay.style.backgroundRepeat = 'no-repeat';
+                messageDisplay.style.backgroundPosition = 'center';
+                messageDisplay.style.backgroundBlendMode = 'multiply';
+                messageDisplay.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            } else {
+                messageDisplay.style.backgroundImage = 'none';
+                messageDisplay.style.backgroundColor = 'transparent';
+            }
+            
             // Fade in and reset position
             [previousText, messageText, nextText].forEach((element, index) => {
                 element.style.transition = `opacity ${fadeInDuration}ms ease, transform ${fadeInDuration}ms ease`;
@@ -104,6 +153,18 @@ document.addEventListener('DOMContentLoaded', () => {
         nextText.textContent = realEndingMessages[1];
     }
     leftBtn.style.display = 'none';
+    
+    // Initialize card background if needed
+    const messageDisplay = document.getElementById('message-display');
+    if (currentMessageIndex >= 4) {
+        const cardImage = getRandomCard(currentMessageIndex);
+        messageDisplay.style.backgroundImage = `url('${cardImage}')`;
+        messageDisplay.style.backgroundSize = 'contain';
+        messageDisplay.style.backgroundRepeat = 'no-repeat';
+        messageDisplay.style.backgroundPosition = 'center';
+        messageDisplay.style.backgroundBlendMode = 'multiply';
+        messageDisplay.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+    }
     
     // Handle button clicks
     rightBtn.addEventListener('click', showNextMessage);

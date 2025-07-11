@@ -117,7 +117,7 @@ body {
 #movement-controls {
     position: absolute;
     bottom: 0;
-    left: 50px; /* Fixed position from left edge */
+    left: 150px; /* Moved closer to center from 50px */
     display: flex;
     gap: 30px;
     pointer-events: auto; /* Re-enable clicks for buttons */
@@ -271,7 +271,7 @@ body {
     }
     
     #movement-controls {
-        left: 30px; /* Closer to edge on mobile */
+        left: 100px; /* Closer to center on mobile from 30px */
         gap: 25px;
     }
     
@@ -327,7 +327,7 @@ body {
     }
     
     #movement-controls {
-        left: 40px; /* Adjust for landscape iPad */
+        left: 120px; /* Adjust for landscape iPad, closer to center */
     }
     
     #action-controls {

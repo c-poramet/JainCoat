@@ -256,6 +256,12 @@ class JuneGame {
                 if (this.nearObject !== obj) {
                     this.nearObject = obj;
                     this.showInteractButton();
+                    
+                    // Hide quarter message if showing when approaching an object
+                    const messageDisplay = document.getElementById('message-display');
+                    if (messageDisplay.classList.contains('quarter')) {
+                        this.hideQuarterMessage();
+                    }
                 }
                 foundNearObject = true;
             }
@@ -264,6 +270,12 @@ class JuneGame {
         if (!foundNearObject && this.nearObject) {
             this.nearObject = null;
             this.hideInteractButton();
+            
+            // If there's a last interacted object and no message is showing, show quarter-sized "..."
+            if (this.lastInteractedObject && document.getElementById('message-display').classList.contains('hidden')) {
+                this.showQuarterMessage();
+            }
+            
             // Scale buttons back up when walking away from objects
             if (document.getElementById('message-display').classList.contains('hidden')) {
                 this.scaleButtonsUp();
@@ -300,16 +312,44 @@ class JuneGame {
         const messageDisplay = document.getElementById('message-display');
         const messageContent = document.getElementById('message-content');
         
+        // Remove quarter class if it exists
+        messageDisplay.classList.remove('quarter');
+        
         messageContent.textContent = message;
         messageDisplay.classList.remove('hidden');
     }
 
     hideMessage() {
         const messageDisplay = document.getElementById('message-display');
-        messageDisplay.classList.add('hidden');
         
-        // Scale buttons back up when message is hidden
+        // If user clicked to close full message and there's a last interacted object, show quarter
+        if (this.lastInteractedObject && !messageDisplay.classList.contains('quarter')) {
+            this.showQuarterMessage();
+        } else {
+            // Completely hide the message
+            messageDisplay.classList.add('hidden');
+            messageDisplay.classList.remove('quarter');
+            // Scale buttons back up when message is hidden
+            this.scaleButtonsUp();
+        }
+    }
+    
+    showQuarterMessage() {
+        const messageDisplay = document.getElementById('message-display');
+        const messageContent = document.getElementById('message-content');
+        
+        messageContent.textContent = '...';
+        messageDisplay.classList.remove('hidden');
+        messageDisplay.classList.add('quarter');
+        
+        // Scale buttons back up since this is just a small indicator
         this.scaleButtonsUp();
+    }
+    
+    hideQuarterMessage() {
+        const messageDisplay = document.getElementById('message-display');
+        messageDisplay.classList.add('hidden');
+        messageDisplay.classList.remove('quarter');
     }
     
     scaleButtonsDown() {
@@ -385,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.juneGame.addObject(
             2600, // worldX position (600 + 2000px further right)
             'assets/Sun.png',
-            'Hello sunshine! ☀️ You found the happy sun! Keep exploring to discover more surprises.',
+            'Hello sunshine! ☀️ I wished to be a sun. I am the light of the world, but I am also the reason for global warming.',
             'sun-object'
         );
         
@@ -393,8 +433,56 @@ document.addEventListener('DOMContentLoaded', () => {
         const sunObject = document.getElementById('sun-object');
         if (sunObject) {
             sunObject.style.bottom = '60%'; // Position it in the sky area
-            sunObject.style.width = '80px';  // Make it a bit larger since it's in the sky
-            sunObject.style.height = '80px';
+            sunObject.style.width = '200px';  // Make it a bit larger since it's in the sky
+            sunObject.style.height = '200px';
+        }
+        
+        // Add the cat 500px to the right of the sun, at ground level
+        window.juneGame.addObject(
+            3100, // worldX position (2600 + 500px further right)
+            'assets/Cat.png',
+            'Meow! 🐱 I wished to be a cat. Unbothered to taxes and schools, but you know pain is inevitable.',
+            'cat-object'
+        );
+        
+        // Keep the cat at ground level (same height as June)
+        const catObject = document.getElementById('cat-object');
+        if (catObject) {
+            catObject.style.bottom = '140px'; // Same level as June
+            catObject.style.width = '100px';   // Appropriate size for a cat
+            catObject.style.height = '100px';
+        }
+        
+        // Add flowers 250px away from the cat, at ground level
+        window.juneGame.addObject(
+            3550, // worldX position (3100 + 250px further right)
+            'assets/Flowers 1.png',
+            'Beautiful flowers! 🌸 I wished to be flowers. Pretty and colorful, but my beauty fades with time.',
+            'flowers-object'
+        );
+        
+        // Keep the flowers at ground level (same height as June)
+        const flowersObject = document.getElementById('flowers-object');
+        if (flowersObject) {
+            flowersObject.style.bottom = '140px'; // Same level as June
+            flowersObject.style.width = '80px';    // Appropriate size for flowers
+            flowersObject.style.height = '80px';
+        }
+        
+        // Add second flowers 200px after the first flowers, at ground level
+        window.juneGame.addObject(
+            4150, // worldX position (3350 + 200px further right)
+            'assets/Flowers 2.png',
+            'More beautiful flowers! 🌺 I wished to be flowers too. Different colors, same fate - beauty is fleeting.',
+            'flowers2-object'
+        );
+        
+        // Keep the second flowers at ground level (same height as June)
+        const flowers2Object = document.getElementById('flowers2-object');
+        if (flowers2Object) {
+            flowers2Object.style.bottom = '140px'; // Same level as June
+            flowers2Object.style.width = '80px';    // Appropriate size for flowers
+            flowers2Object.style.height = '80px';
         }
     }, 100); // Small delay to ensure game is fully loaded
 });

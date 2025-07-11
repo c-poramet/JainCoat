@@ -33,6 +33,7 @@ class JuneGame {
         this.screenWidth = window.innerWidth;
         this.isMoving = { left: false, right: false };
         this.nearObject = null;
+        this.lastInteractedObject = null; // Track the last object June interacted with
         
         this.init();
     }
@@ -263,6 +264,10 @@ class JuneGame {
         if (!foundNearObject && this.nearObject) {
             this.nearObject = null;
             this.hideInteractButton();
+            // Scale buttons back up when walking away from objects
+            if (document.getElementById('message-display').classList.contains('hidden')) {
+                this.scaleButtonsUp();
+            }
         }
     }
     
@@ -270,6 +275,7 @@ class JuneGame {
         if (this.nearObject) {
             const message = this.nearObject.dataset.message;
             if (message) {
+                this.lastInteractedObject = this.nearObject; // Track this interaction
                 this.showMessage(message);
             }
         }
@@ -284,10 +290,12 @@ class JuneGame {
         const interactBtn = document.getElementById('interact-btn');
         interactBtn.classList.add('hidden');
     }
-    
-    showMessage(message) {
+     showMessage(message) {
         // Stop all movement when showing a message
         this.stopMovement();
+        
+        // Scale down buttons to make room for text box
+        this.scaleButtonsDown();
         
         const messageDisplay = document.getElementById('message-display');
         const messageContent = document.getElementById('message-content');
@@ -295,10 +303,27 @@ class JuneGame {
         messageContent.textContent = message;
         messageDisplay.classList.remove('hidden');
     }
-    
+
     hideMessage() {
         const messageDisplay = document.getElementById('message-display');
         messageDisplay.classList.add('hidden');
+        
+        // Scale buttons back up when message is hidden
+        this.scaleButtonsUp();
+    }
+    
+    scaleButtonsDown() {
+        const buttons = document.querySelectorAll('.control-btn');
+        buttons.forEach(btn => {
+            btn.classList.add('small');
+        });
+    }
+    
+    scaleButtonsUp() {
+        const buttons = document.querySelectorAll('.control-btn');
+        buttons.forEach(btn => {
+            btn.classList.remove('small');
+        });
     }
     
     getPlayerRect() {

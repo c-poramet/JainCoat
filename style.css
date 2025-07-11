@@ -108,24 +108,29 @@ body {
 #mobile-controls {
     position: fixed;
     bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
+    left: 0;
+    right: 0;
     z-index: 100;
+    pointer-events: none; /* Allow clicks to pass through container */
 }
 
 #movement-controls {
+    position: absolute;
+    bottom: 0;
+    left: 50px; /* Fixed position from left edge */
     display: flex;
     gap: 30px;
+    pointer-events: auto; /* Re-enable clicks for buttons */
 }
 
 #action-controls {
+    position: absolute;
+    bottom: 0;
+    right: 50px; /* Fixed position from right edge */
     display: flex;
     gap: 30px;
     align-items: center;
+    pointer-events: auto; /* Re-enable clicks for buttons */
 }
 
 /* Button scaling states */
@@ -265,15 +270,13 @@ body {
         height: 110px;
     }
     
-    #mobile-controls {
-        gap: 30px;
-    }
-    
     #movement-controls {
+        left: 30px; /* Closer to edge on mobile */
         gap: 25px;
     }
     
     #action-controls {
+        right: 30px; /* Closer to edge on mobile */
         gap: 25px;
     }
     
@@ -321,6 +324,14 @@ body {
 @media screen and (min-width: 835px) and (max-width: 1194px) and (orientation: landscape) {
     #mobile-controls {
         bottom: 30px;
+    }
+    
+    #movement-controls {
+        left: 40px; /* Adjust for landscape iPad */
+    }
+    
+    #action-controls {
+        right: 40px; /* Adjust for landscape iPad */
     }
     
     .control-btn img {

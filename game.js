@@ -484,6 +484,54 @@ document.addEventListener('DOMContentLoaded', () => {
             flowers2Object.style.width = '80px';    // Appropriate size for flowers
             flowers2Object.style.height = '80px';
         }
+        
+        // Add piano 300px after the second flowers, at ground level
+        window.juneGame.addObject(
+            5250, // worldX position (4150 + 300px further right)
+            'assets/Piano.png',
+            'A piano! 🎹 I wished to be a piano. People love my creations but hate the journey it takes to learn how to make them.',
+            'piano-object'
+        );
+        
+        // Keep the piano at ground level (same height as June)
+        const pianoObject = document.getElementById('piano-object');
+        if (pianoObject) {
+            pianoObject.style.bottom = '50px'; // Same level as June
+            pianoObject.style.width = '120px';   // Larger size for a piano
+            pianoObject.style.height = '120px';
+        }
+        
+        // Add bouquet 420px after the piano, at ground level
+        window.juneGame.addObject(
+            4870, // worldX position (4450 + 420px further right)
+            'assets/Bouquet .png',
+            'A lovely bouquet! 💐 I wished to be a bouquet. Given with love and joy, but destined to wither and be forgotten.',
+            'bouquet-object'
+        );
+        
+        // Keep the bouquet at ground level (same height as June)
+        const bouquetObject = document.getElementById('bouquet-object');
+        if (bouquetObject) {
+            bouquetObject.style.bottom = '140px'; // Same level as June
+            bouquetObject.style.width = '90px';    // Appropriate size for a bouquet
+            bouquetObject.style.height = '90px';
+        }
+        
+        // Add gift box 300px after the bouquet, at ground level
+        window.juneGame.addObject(
+            5670, // worldX position (4870 + 300px further right)
+            'assets/Gift.png',
+            'A mysterious gift box! 🎁 I wished to be a gift. Wrapped with care and anticipation, but my value is only known when opened.',
+            'gift-object'
+        );
+        
+        // Keep the gift box at ground level (same height as June)
+        const giftObject = document.getElementById('gift-object');
+        if (giftObject) {
+            giftObject.style.bottom = '140px'; // Same level as June
+            giftObject.style.width = '85px';    // Appropriate size for a gift box
+            giftObject.style.height = '85px';
+        }
     }, 100); // Small delay to ensure game is fully loaded
 });
 
